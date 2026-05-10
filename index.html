@@ -1,66 +1,60 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SpendWise — Assignment 2</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-.app{font-family:var(--font-sans);background:var(--color-background-primary)}
-.header{padding:20px 24px 0}
+body{font-family:Arial,sans-serif;background:#fff;color:#1a1a1a}
+.header{padding:20px 24px 0;border-bottom:1px solid #e5e5e5}
 .brand{display:flex;align-items:center;gap:10px;margin-bottom:16px}
-.logo{width:32px;height:32px;background:#185FA5;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;font-weight:500;flex-shrink:0}
-.brand-name{font-size:15px;font-weight:500;color:var(--color-text-primary)}
-.brand-sub{font-size:12px;color:var(--color-text-secondary)}
-.tabs{display:flex;border-bottom:0.5px solid var(--color-border-tertiary);overflow-x:auto}
-.tab{padding:10px 16px;font-size:13px;color:var(--color-text-secondary);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-0.5px;white-space:nowrap;transition:color .15s,border-color .15s;flex-shrink:0}
-.tab.active{color:#185FA5;border-bottom-color:#185FA5;font-weight:500}
-.content{display:none;padding:20px 24px}
+.logo{width:32px;height:32px;background:#185FA5;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;font-weight:700;flex-shrink:0}
+.brand-name{font-size:15px;font-weight:600;color:#1a1a1a}
+.brand-sub{font-size:12px;color:#888}
+.tabs{display:flex;overflow-x:auto}
+.tab{padding:10px 16px;font-size:13px;color:#888;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;white-space:nowrap;flex-shrink:0}
+.tab.active{color:#185FA5;border-bottom-color:#185FA5;font-weight:600}
+.content{display:none;padding:24px}
 .content.active{display:block}
-.section-label{font-size:11px;font-weight:500;color:var(--color-text-tertiary);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px}
-.desc{font-size:13px;color:var(--color-text-secondary);margin-bottom:16px;line-height:1.5}
-.play-bar{display:flex;align-items:center;gap:12px;margin-bottom:16px}
-.play-btn{padding:6px 14px;font-size:12px;font-weight:500;background:#185FA5;color:#fff;border:none;border-radius:6px;cursor:pointer;transition:opacity .15s}
-.play-btn:hover{opacity:.85}
-.step-dots{display:flex;gap:6px;align-items:center}
-.dot{width:7px;height:7px;border-radius:50%;background:var(--color-border-secondary);transition:background .3s}
-.dot.active{background:#185FA5}
-.step-label{font-size:12px;color:var(--color-text-tertiary)}
-
-/* SVG animation helpers */
-.sw-node{opacity:0;transition:opacity .4s}
-.sw-arrow{opacity:0;transition:opacity .35s}
-.sw-label{opacity:0;transition:opacity .3s}
+.slabel{font-size:11px;font-weight:600;color:#888;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px}
+.desc{font-size:13px;color:#888;margin-bottom:16px;line-height:1.5}
+.play-bar{display:flex;align-items:center;gap:10px;margin-bottom:18px;flex-wrap:wrap}
+.play-btn{padding:7px 16px;font-size:12px;font-weight:600;background:#185FA5;color:#fff;border:none;border-radius:6px;cursor:pointer}
+.dots{display:flex;gap:5px}
+.dot{width:7px;height:7px;border-radius:50%;background:#ddd;transition:background .3s}
+.dot.on{background:#185FA5}
+.slb{font-size:12px;color:#888;flex:1}
+.sw-node,.sw-arrow,.sw-label{opacity:0;transition:opacity .5s}
 .sw-show{opacity:1}
-
-/* arch boxes */
-.arch-node{opacity:0;transition:opacity .4s,transform .4s;transform:translateY(8px)}
-.arch-show{opacity:1;transform:translateY(0)}
-
-/* dep rows */
-.dep-row{opacity:0;transform:translateX(-10px);transition:opacity .4s,transform .4s}
-.dep-show{opacity:1;transform:translateX(0)}
-
-/* compliance rows */
-.comp-row{opacity:0;transform:translateY(6px);transition:opacity .35s,transform .35s}
-.comp-show{opacity:1;transform:translateY(0)}
-
-/* extra cards */
-.extra-card{border-left:3px solid #185FA5;border-radius:0 8px 8px 0;background:var(--color-background-secondary);padding:14px 16px;margin-bottom:12px;opacity:0;transform:translateY(8px);transition:opacity .4s,transform .4s}
-.extra-show{opacity:1;transform:translateY(0)}
-
-table{width:100%;border-collapse:collapse;font-size:13px}
-th{text-align:left;font-size:11px;font-weight:500;color:var(--color-text-tertiary);text-transform:uppercase;letter-spacing:.05em;padding:8px 12px;border-bottom:0.5px solid var(--color-border-tertiary)}
-td{padding:9px 12px;border-bottom:0.5px solid var(--color-border-tertiary);color:var(--color-text-secondary);vertical-align:top}
-td:first-child{color:var(--color-text-primary);font-weight:500}
+.an{opacity:0;transform:translateY(8px);transition:opacity .5s,transform .5s}
+.an.show{opacity:1;transform:translateY(0)}
+.dr{opacity:0;transform:translateX(-12px);transition:opacity .45s,transform .45s}
+.dr.show{opacity:1;transform:translateX(0)}
+.cr{opacity:0;transform:translateY(6px);transition:opacity .4s,transform .4s}
+.cr.show{opacity:1;transform:translateY(0)}
+.ec{border-left:3px solid #185FA5;border-radius:0 8px 8px 0;background:#f7f7f7;padding:14px 16px;margin-bottom:12px;opacity:0;transform:translateY(8px);transition:opacity .45s,transform .45s}
+.ec.show{opacity:1;transform:translateY(0)}
+.ect{font-size:13px;font-weight:600;color:#1a1a1a;margin-bottom:6px}
+.ecb{font-size:12px;color:#555;line-height:1.65}
+table{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:18px}
+th{text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;padding:8px 10px;background:#E6F1FB;color:#0C447C;border-bottom:1px solid #cde0f5}
+td{padding:8px 10px;border-bottom:1px solid #eee;color:#555;vertical-align:top}
+td:first-child{color:#1a1a1a;font-weight:500}
 tr:last-child td{border-bottom:none}
-.pill{display:inline-block;font-size:11px;padding:2px 8px;border-radius:20px;font-weight:500}
-.p-blue{background:#E6F1FB;color:#0C447C}
-.p-green{background:#EAF3DE;color:#27500A}
-.p-amber{background:#FAEEDA;color:#633806}
-.p-red{background:#FCEBEB;color:#791F1F}
-.p-gray{background:#F1EFE8;color:#444441}
-.badge{display:inline-flex;align-items:center;font-size:11px;padding:2px 10px;border-radius:20px;border:0.5px solid var(--color-border-secondary);color:var(--color-text-secondary);margin-right:6px;margin-bottom:6px}
-.info-box{margin-top:16px;padding:12px 14px;background:#E6F1FB;border-radius:8px;font-size:12px;color:#0C447C;line-height:1.6}
-.warn-box{margin-top:12px;padding:12px 14px;background:#FAEEDA;border-radius:8px;font-size:12px;color:#633806;line-height:1.6}
+.pill{display:inline-block;font-size:11px;padding:2px 8px;border-radius:20px;font-weight:600}
+.pb{background:#E6F1FB;color:#0C447C}
+.pg{background:#EAF3DE;color:#1a5c00}
+.pa{background:#FAEEDA;color:#7a3800}
+.pr{background:#FCEBEB;color:#8a1010}
+.pgy{background:#F1EFE8;color:#444}
+.chain{font-size:12px;font-weight:600;color:#0C447C;background:#E6F1FB;border-radius:6px;padding:10px 14px;margin-bottom:12px;line-height:1.9;word-break:break-word}
+.sublabel{font-size:11px;font-weight:600;color:#555;text-transform:uppercase;letter-spacing:.05em;margin:18px 0 8px}
+.infobox{padding:12px 14px;background:#E6F1FB;border-radius:8px;font-size:12px;color:#0C447C;line-height:1.6;margin-top:12px}
+.warnbox{padding:12px 14px;background:#FFF3CD;border-radius:8px;font-size:12px;color:#7a3800;line-height:1.6;margin-top:12px}
 </style>
-
-<div class="app">
+</head>
+<body>
 <div class="header">
   <div class="brand">
     <div class="logo">SW</div>
@@ -70,396 +64,379 @@ tr:last-child td{border-bottom:none}
     </div>
   </div>
   <div class="tabs">
-    <div class="tab active" onclick="switchTab('context')">System context</div>
+    <div class="tab active" onclick="switchTab('ctx')">System context</div>
     <div class="tab" onclick="switchTab('arch')">Architecture</div>
-    <div class="tab" onclick="switchTab('deps')">Dependency map</div>
-    <div class="tab" onclick="switchTab('compliance')">Compliance</div>
-    <div class="tab" onclick="switchTab('extra')">Extra credit ✦</div>
+    <div class="tab" onclick="switchTab('dep')">Dependency map</div>
+    <div class="tab" onclick="switchTab('comp')">Compliance</div>
+    <div class="tab" onclick="switchTab('ext')">Extra credit ✦</div>
   </div>
 </div>
 
 <!-- SYSTEM CONTEXT -->
-<div class="content active" id="tab-context">
-  <div class="section-label">System context diagram</div>
-  <div class="desc">Boundaries of the SpendWise recommendation engine and its external integrations.</div>
+<div class="content active" id="tab-ctx">
+  <div class="slabel">System context diagram</div>
+  <div class="desc">Boundaries of the SpendWise recommendation engine, its users, and external integrations.</div>
   <div class="play-bar">
-    <button class="play-btn" onclick="playContext()">Play walkthrough</button>
-    <div class="step-dots" id="ctx-dots"></div>
-    <span class="step-label" id="ctx-label"></span>
+    <button class="play-btn" onclick="playCtx()">&#9654; Play walkthrough</button>
+    <div class="dots" id="ctx-dots"></div>
+    <span class="slb" id="ctx-lbl"></span>
   </div>
-  <svg width="100%" viewBox="0 0 640 460" role="img">
-    <title>SpendWise system context diagram</title>
-    <defs><marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
-
-    <!-- Step 0: system boundary + core -->
-    <g class="sw-node" id="ctx-0">
-      <rect x="200" y="150" width="240" height="160" rx="14" fill="none" stroke="#185FA5" stroke-width="1.5" stroke-dasharray="6 3" opacity=".6"/>
-      <text x="320" y="144" text-anchor="middle" font-size="11" fill="#185FA5" font-family="var(--font-sans)" font-weight="500">System boundary</text>
-      <rect x="220" y="168" width="200" height="124" rx="10" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
-      <text x="320" y="222" text-anchor="middle" font-size="14" font-weight="500" fill="#0C447C" font-family="var(--font-sans)">Recommendation</text>
-      <text x="320" y="240" text-anchor="middle" font-size="14" font-weight="500" fill="#0C447C" font-family="var(--font-sans)">Engine</text>
-      <text x="320" y="262" text-anchor="middle" font-size="11" fill="#185FA5" font-family="var(--font-sans)">SpendWise core system</text>
+  <svg width="100%" viewBox="0 0 660 500">
+    <defs>
+      <marker id="a1" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#555" stroke-width="1.5" stroke-linecap="round"/></marker>
+      <marker id="a1b" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#185FA5" stroke-width="1.5" stroke-linecap="round"/></marker>
+      <marker id="a1c" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#BA7517" stroke-width="1.5" stroke-linecap="round"/></marker>
+    </defs>
+    <g class="sw-node" id="cn0">
+      <rect x="210" y="160" width="240" height="160" rx="14" fill="none" stroke="#185FA5" stroke-width="1.5" stroke-dasharray="6 3"/>
+      <text x="330" y="152" text-anchor="middle" font-size="11" fill="#185FA5" font-weight="600">System boundary</text>
+      <rect x="228" y="176" width="204" height="128" rx="10" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+      <text x="330" y="226" text-anchor="middle" font-size="14" font-weight="700" fill="#0C447C">Recommendation</text>
+      <text x="330" y="244" text-anchor="middle" font-size="14" font-weight="700" fill="#0C447C">Engine</text>
+      <text x="330" y="266" text-anchor="middle" font-size="11" fill="#185FA5">SpendWise core system</text>
     </g>
-
-    <!-- Step 1: Mobile app -->
-    <g class="sw-node" id="ctx-1">
-      <rect x="16" y="188" width="134" height="52" rx="8" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.5"/>
-      <text x="83" y="210" text-anchor="middle" font-size="13" font-weight="500" fill="#2C2C2A" font-family="var(--font-sans)">Mobile app</text>
-      <text x="83" y="228" text-anchor="middle" font-size="11" fill="#5F5E5A" font-family="var(--font-sans)">iOS / Android</text>
+    <g class="sw-node" id="cn1">
+      <ellipse cx="80" cy="240" rx="64" ry="34" fill="#FAEEDA" stroke="#BA7517" stroke-width="1"/>
+      <text x="80" y="236" text-anchor="middle" font-size="12" font-weight="700" fill="#633806">SpendWise</text>
+      <text x="80" y="252" text-anchor="middle" font-size="12" font-weight="700" fill="#633806">User</text>
     </g>
-    <g class="sw-arrow" id="ctx-1a">
-      <line x1="150" y1="208" x2="220" y2="220" stroke="#5F5E5A" stroke-width="1" marker-end="url(#arr)" fill="none"/>
-      <text x="183" y="204" text-anchor="middle" font-size="10" fill="#5F5E5A" font-family="var(--font-sans)">purchase intent</text>
-      <line x1="220" y1="242" x2="150" y2="242" stroke="#185FA5" stroke-width="1" marker-end="url(#arr)" fill="none"/>
-      <text x="183" y="258" text-anchor="middle" font-size="10" fill="#185FA5" font-family="var(--font-sans)">recommendation</text>
+    <g class="sw-arrow" id="ca1">
+      <line x1="144" y1="226" x2="228" y2="216" stroke="#BA7517" stroke-width="1.2" marker-end="url(#a1c)"/>
+      <text x="184" y="210" text-anchor="middle" font-size="10" fill="#BA7517">purchase intent</text>
+      <line x1="228" y1="250" x2="144" y2="254" stroke="#185FA5" stroke-width="1.2" marker-end="url(#a1b)"/>
+      <text x="184" y="270" text-anchor="middle" font-size="10" fill="#185FA5">recommendation</text>
     </g>
-
-    <!-- Step 2: Bank APIs -->
-    <g class="sw-node" id="ctx-2">
-      <rect x="16" y="68" width="134" height="52" rx="8" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.5"/>
-      <text x="83" y="90" text-anchor="middle" font-size="13" font-weight="500" fill="#2C2C2A" font-family="var(--font-sans)">Bank APIs</text>
-      <text x="83" y="108" text-anchor="middle" font-size="11" fill="#5F5E5A" font-family="var(--font-sans)">Plaid / Finicity</text>
+    <g class="sw-node" id="cn2">
+      <rect x="16" y="64" width="136" height="52" rx="8" fill="#F1EFE8" stroke="#888" stroke-width="0.5"/>
+      <text x="84" y="86" text-anchor="middle" font-size="13" font-weight="600" fill="#2C2C2A">Bank APIs</text>
+      <text x="84" y="104" text-anchor="middle" font-size="11" fill="#666">Plaid / Finicity</text>
     </g>
-    <g class="sw-arrow" id="ctx-2a">
-      <line x1="150" y1="94" x2="220" y2="178" stroke="#5F5E5A" stroke-width="1" marker-end="url(#arr)" fill="none"/>
-      <text x="172" y="128" text-anchor="middle" font-size="10" fill="#5F5E5A" font-family="var(--font-sans)">transaction data</text>
+    <g class="sw-arrow" id="ca2">
+      <line x1="152" y1="92" x2="228" y2="186" stroke="#555" stroke-width="1" marker-end="url(#a1)"/>
+      <text x="177" y="130" text-anchor="middle" font-size="10" fill="#555">transaction data</text>
     </g>
-
-    <!-- Step 3: Push + Payment -->
-    <g class="sw-node" id="ctx-3">
-      <rect x="16" y="318" width="134" height="52" rx="8" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.5"/>
-      <text x="83" y="340" text-anchor="middle" font-size="13" font-weight="500" fill="#2C2C2A" font-family="var(--font-sans)">Push service</text>
-      <text x="83" y="358" text-anchor="middle" font-size="11" fill="#5F5E5A" font-family="var(--font-sans)">FCM / APNs</text>
-      <rect x="490" y="68" width="144" height="52" rx="8" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.5"/>
-      <text x="562" y="90" text-anchor="middle" font-size="13" font-weight="500" fill="#2C2C2A" font-family="var(--font-sans)">Payment processor</text>
-      <text x="562" y="108" text-anchor="middle" font-size="11" fill="#5F5E5A" font-family="var(--font-sans)">Stripe / Braintree</text>
+    <g class="sw-node" id="cn3">
+      <rect x="16" y="340" width="136" height="52" rx="8" fill="#F1EFE8" stroke="#888" stroke-width="0.5"/>
+      <text x="84" y="362" text-anchor="middle" font-size="13" font-weight="600" fill="#2C2C2A">Push service</text>
+      <text x="84" y="380" text-anchor="middle" font-size="11" fill="#666">FCM / APNs</text>
+      <rect x="508" y="64" width="144" height="52" rx="8" fill="#F1EFE8" stroke="#888" stroke-width="0.5"/>
+      <text x="580" y="84" text-anchor="middle" font-size="12" font-weight="600" fill="#2C2C2A">Payment</text>
+      <text x="580" y="102" text-anchor="middle" font-size="12" font-weight="600" fill="#2C2C2A">processor</text>
     </g>
-    <g class="sw-arrow" id="ctx-3a">
-      <line x1="220" y1="290" x2="150" y2="318" stroke="#185FA5" stroke-width="1" marker-end="url(#arr)" fill="none"/>
-      <text x="174" y="312" text-anchor="middle" font-size="10" fill="#185FA5" font-family="var(--font-sans)">alert trigger</text>
-      <line x1="420" y1="188" x2="490" y2="108" stroke="#5F5E5A" stroke-width="1" marker-end="url(#arr)" fill="none"/>
-      <text x="462" y="140" text-anchor="middle" font-size="10" fill="#5F5E5A" font-family="var(--font-sans)">installment plan</text>
+    <g class="sw-arrow" id="ca3">
+      <line x1="228" y1="304" x2="152" y2="340" stroke="#185FA5" stroke-width="1" marker-end="url(#a1b)"/>
+      <text x="180" y="328" text-anchor="middle" font-size="10" fill="#185FA5">alert trigger</text>
+      <line x1="432" y1="192" x2="508" y2="108" stroke="#555" stroke-width="1" marker-end="url(#a1)"/>
+      <text x="474" y="142" text-anchor="middle" font-size="10" fill="#555">installment plan</text>
     </g>
-
-    <!-- Step 4: Analytics + Affiliate -->
-    <g class="sw-node" id="ctx-4">
-      <rect x="490" y="188" width="144" height="52" rx="8" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.5"/>
-      <text x="562" y="210" text-anchor="middle" font-size="13" font-weight="500" fill="#2C2C2A" font-family="var(--font-sans)">Analytics</text>
-      <text x="562" y="228" text-anchor="middle" font-size="11" fill="#5F5E5A" font-family="var(--font-sans)">Segment / Mixpanel</text>
-      <rect x="490" y="318" width="144" height="52" rx="8" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.5"/>
-      <text x="562" y="340" text-anchor="middle" font-size="13" font-weight="500" fill="#2C2C2A" font-family="var(--font-sans)">Affiliate partners</text>
-      <text x="562" y="358" text-anchor="middle" font-size="11" fill="#5F5E5A" font-family="var(--font-sans)">Financial products</text>
+    <g class="sw-node" id="cn4">
+      <rect x="508" y="196" width="144" height="52" rx="8" fill="#F1EFE8" stroke="#888" stroke-width="0.5"/>
+      <text x="580" y="218" text-anchor="middle" font-size="13" font-weight="600" fill="#2C2C2A">Analytics</text>
+      <text x="580" y="236" text-anchor="middle" font-size="11" fill="#666">Segment / Mixpanel</text>
+      <rect x="508" y="340" width="144" height="52" rx="8" fill="#F1EFE8" stroke="#888" stroke-width="0.5"/>
+      <text x="580" y="362" text-anchor="middle" font-size="13" font-weight="600" fill="#2C2C2A">Affiliate partners</text>
+      <text x="580" y="380" text-anchor="middle" font-size="11" fill="#666">Financial products</text>
     </g>
-    <g class="sw-arrow" id="ctx-4a">
-      <line x1="420" y1="232" x2="490" y2="218" stroke="#185FA5" stroke-width="1" marker-end="url(#arr)" fill="none"/>
-      <text x="457" y="222" text-anchor="middle" font-size="10" fill="#185FA5" font-family="var(--font-sans)">engagement events</text>
-      <line x1="420" y1="282" x2="490" y2="330" stroke="#185FA5" stroke-width="1" marker-end="url(#arr)" fill="none"/>
-      <text x="462" y="316" text-anchor="middle" font-size="10" fill="#185FA5" font-family="var(--font-sans)">referral trigger</text>
+    <g class="sw-arrow" id="ca4">
+      <line x1="432" y1="240" x2="508" y2="228" stroke="#185FA5" stroke-width="1" marker-end="url(#a1b)"/>
+      <text x="470" y="224" text-anchor="middle" font-size="10" fill="#185FA5">engagement events</text>
+      <line x1="432" y1="296" x2="508" y2="346" stroke="#185FA5" stroke-width="1" marker-end="url(#a1b)"/>
+      <text x="474" y="326" text-anchor="middle" font-size="10" fill="#185FA5">referral trigger</text>
     </g>
-
-    <!-- Step 5: CFPB badge -->
-    <g class="sw-label" id="ctx-5">
-      <rect x="220" y="400" width="200" height="28" rx="6" fill="#FAEEDA"/>
-      <text x="320" y="419" text-anchor="middle" font-size="11" fill="#633806" font-weight="500" font-family="var(--font-sans)">CFPB compliance boundary</text>
+    <g class="sw-label" id="cl5">
+      <rect x="228" y="418" width="204" height="30" rx="6" fill="#FAEEDA"/>
+      <text x="330" y="438" text-anchor="middle" font-size="11" fill="#7a3800" font-weight="600">CFPB compliance boundary</text>
     </g>
   </svg>
 </div>
 
 <!-- ARCHITECTURE -->
 <div class="content" id="tab-arch">
-  <div class="section-label">High-level architecture diagram</div>
-  <div class="desc">Three-layer modular architecture — presentation, business logic, data access.</div>
+  <div class="slabel">High-level architecture diagram</div>
+  <div class="desc">Three-layer modular architecture. Business logic: Cash Flow Analysis → Recommendation Engine → Compliance / Output Filter → Feedback Loop → ML Scoring Engine (Project 2).</div>
   <div class="play-bar">
-    <button class="play-btn" onclick="playArch()">Play walkthrough</button>
-    <div class="step-dots" id="arch-dots"></div>
-    <span class="step-label" id="arch-label"></span>
+    <button class="play-btn" onclick="playArch()">&#9654; Play walkthrough</button>
+    <div class="dots" id="arch-dots"></div>
+    <span class="slb" id="arch-lbl"></span>
   </div>
-  <svg width="100%" viewBox="0 0 640 500" role="img">
-    <title>SpendWise architecture diagram</title>
-    <defs><marker id="arr2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
-
-    <!-- Step 0: Presentation layer -->
-    <g class="arch-node" id="arch-0">
-      <rect x="20" y="20" width="600" height="110" rx="12" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
-      <text x="36" y="42" font-size="11" font-weight="500" fill="#0C447C" font-family="var(--font-sans)">Presentation layer</text>
-      <rect x="40" y="52" width="158" height="58" rx="8" fill="#fff" stroke="#185FA5" stroke-width="0.5"/>
-      <text x="119" y="78" text-anchor="middle" font-size="13" font-weight="500" fill="#0C447C" font-family="var(--font-sans)">Mobile app UI</text>
-      <text x="119" y="96" text-anchor="middle" font-size="11" fill="#185FA5" font-family="var(--font-sans)">iOS / Android</text>
-      <rect x="238" y="52" width="158" height="58" rx="8" fill="#fff" stroke="#185FA5" stroke-width="0.5"/>
-      <text x="317" y="78" text-anchor="middle" font-size="13" font-weight="500" fill="#0C447C" font-family="var(--font-sans)">REST API gateway</text>
-      <text x="317" y="96" text-anchor="middle" font-size="11" fill="#185FA5" font-family="var(--font-sans)">Auth + routing</text>
-      <rect x="436" y="52" width="164" height="58" rx="8" fill="#fff" stroke="#185FA5" stroke-width="0.5"/>
-      <text x="518" y="78" text-anchor="middle" font-size="13" font-weight="500" fill="#0C447C" font-family="var(--font-sans)">Notification service</text>
-      <text x="518" y="96" text-anchor="middle" font-size="11" fill="#185FA5" font-family="var(--font-sans)">FCM / APNs</text>
-      <line x1="198" y1="81" x2="238" y2="81" stroke="#185FA5" stroke-width="1" marker-end="url(#arr2)" fill="none"/>
-      <line x1="396" y1="81" x2="436" y2="81" stroke="#185FA5" stroke-width="1" marker-end="url(#arr2)" fill="none"/>
+  <svg width="100%" viewBox="0 0 660 540">
+    <defs>
+      <marker id="a2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#185FA5" stroke-width="1.5" stroke-linecap="round"/></marker>
+      <marker id="a2g" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#0F6E56" stroke-width="1.5" stroke-linecap="round"/></marker>
+      <marker id="a2p" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#534AB7" stroke-width="1.5" stroke-linecap="round"/></marker>
+      <marker id="a2gr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#888" stroke-width="1.5" stroke-linecap="round"/></marker>
+    </defs>
+    <g class="an" id="ar0">
+      <rect x="10" y="10" width="640" height="112" rx="12" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+      <text x="26" y="32" font-size="11" font-weight="600" fill="#0C447C">Presentation layer</text>
+      <rect x="26" y="44" width="150" height="60" rx="8" fill="#fff" stroke="#185FA5" stroke-width="0.5"/>
+      <text x="101" y="71" text-anchor="middle" font-size="12" font-weight="600" fill="#0C447C">Mobile app UI</text>
+      <text x="101" y="89" text-anchor="middle" font-size="11" fill="#185FA5">iOS / Android</text>
+      <rect x="230" y="44" width="160" height="60" rx="8" fill="#fff" stroke="#185FA5" stroke-width="0.5"/>
+      <text x="310" y="71" text-anchor="middle" font-size="12" font-weight="600" fill="#0C447C">REST API gateway</text>
+      <text x="310" y="89" text-anchor="middle" font-size="11" fill="#185FA5">Auth + routing</text>
+      <rect x="450" y="44" width="184" height="60" rx="8" fill="#fff" stroke="#185FA5" stroke-width="0.5"/>
+      <text x="542" y="71" text-anchor="middle" font-size="12" font-weight="600" fill="#0C447C">Notification service</text>
+      <text x="542" y="89" text-anchor="middle" font-size="11" fill="#185FA5">FCM / APNs</text>
+      <line x1="176" y1="74" x2="230" y2="74" stroke="#185FA5" stroke-width="1" marker-end="url(#a2)"/>
+      <line x1="390" y1="74" x2="450" y2="74" stroke="#185FA5" stroke-width="1" marker-end="url(#a2)"/>
     </g>
-
-    <!-- connector pres to biz -->
-    <g class="arch-node" id="arch-0b">
-      <line x1="317" y1="130" x2="317" y2="158" stroke="#888780" stroke-width="1" marker-end="url(#arr2)" fill="none"/>
+    <g class="an" id="ar0b">
+      <line x1="330" y1="122" x2="330" y2="150" stroke="#888" stroke-width="1" marker-end="url(#a2gr)"/>
     </g>
-
-    <!-- Step 1: Business logic layer -->
-    <g class="arch-node" id="arch-1">
-      <rect x="20" y="158" width="600" height="172" rx="12" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
-      <text x="36" y="178" font-size="11" font-weight="500" fill="#085041" font-family="var(--font-sans)">Business logic layer</text>
-      <rect x="36" y="190" width="134" height="120" rx="8" fill="#fff" stroke="#0F6E56" stroke-width="0.5"/>
-      <text x="103" y="218" text-anchor="middle" font-size="12" font-weight="500" fill="#085041" font-family="var(--font-sans)">Recommendation</text>
-      <text x="103" y="234" text-anchor="middle" font-size="12" font-weight="500" fill="#085041" font-family="var(--font-sans)">engine</text>
-      <text x="103" y="252" text-anchor="middle" font-size="11" fill="#0F6E56" font-family="var(--font-sans)">Core microservice</text>
-      <text x="103" y="298" text-anchor="middle" font-size="10" fill="#888780" font-family="var(--font-sans)">Pay / split / postpone</text>
-      <rect x="188" y="190" width="134" height="120" rx="8" fill="#fff" stroke="#0F6E56" stroke-width="0.5"/>
-      <text x="255" y="218" text-anchor="middle" font-size="12" font-weight="500" fill="#085041" font-family="var(--font-sans)">Cash flow</text>
-      <text x="255" y="234" text-anchor="middle" font-size="12" font-weight="500" fill="#085041" font-family="var(--font-sans)">analysis</text>
-      <text x="255" y="252" text-anchor="middle" font-size="11" fill="#0F6E56" font-family="var(--font-sans)">Budget evaluator</text>
-      <text x="255" y="298" text-anchor="middle" font-size="10" fill="#888780" font-family="var(--font-sans)">Real-time scoring</text>
-      <rect x="340" y="190" width="134" height="120" rx="8" fill="#fff" stroke="#0F6E56" stroke-width="0.5"/>
-      <text x="407" y="218" text-anchor="middle" font-size="12" font-weight="500" fill="#085041" font-family="var(--font-sans)">ML scoring</text>
-      <text x="407" y="234" text-anchor="middle" font-size="12" font-weight="500" fill="#085041" font-family="var(--font-sans)">engine</text>
-      <text x="407" y="252" text-anchor="middle" font-size="11" fill="#0F6E56" font-family="var(--font-sans)">Project 2 scope</text>
-      <text x="407" y="298" text-anchor="middle" font-size="10" fill="#888780" font-family="var(--font-sans)">Personalization</text>
-      <rect x="492" y="190" width="108" height="120" rx="8" fill="#fff" stroke="#0F6E56" stroke-width="0.5"/>
-      <text x="546" y="242" text-anchor="middle" font-size="12" font-weight="500" fill="#085041" font-family="var(--font-sans)">Feedback</text>
-      <text x="546" y="258" text-anchor="middle" font-size="12" font-weight="500" fill="#085041" font-family="var(--font-sans)">loop</text>
-      <text x="546" y="298" text-anchor="middle" font-size="10" fill="#888780" font-family="var(--font-sans)">Learning signal</text>
-      <line x1="170" y1="250" x2="188" y2="250" stroke="#0F6E56" stroke-width="1" marker-end="url(#arr2)" fill="none"/>
-      <line x1="322" y1="250" x2="340" y2="250" stroke="#0F6E56" stroke-width="1" marker-end="url(#arr2)" fill="none"/>
-      <line x1="474" y1="250" x2="492" y2="250" stroke="#0F6E56" stroke-width="1" marker-end="url(#arr2)" fill="none"/>
+    <g class="an" id="ar1">
+      <rect x="10" y="150" width="640" height="192" rx="12" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
+      <text x="26" y="170" font-size="11" font-weight="600" fill="#085041">Business logic layer</text>
+      <rect x="20" y="180" width="106" height="144" rx="8" fill="#fff" stroke="#0F6E56" stroke-width="0.5"/>
+      <text x="73" y="208" text-anchor="middle" font-size="11" font-weight="600" fill="#085041">Cash Flow</text>
+      <text x="73" y="224" text-anchor="middle" font-size="11" font-weight="600" fill="#085041">Analysis</text>
+      <text x="73" y="242" text-anchor="middle" font-size="10" fill="#0F6E56">Runs first</text>
+      <text x="73" y="308" text-anchor="middle" font-size="10" fill="#999">Budget eval</text>
+      <rect x="142" y="180" width="116" height="144" rx="8" fill="#fff" stroke="#0F6E56" stroke-width="0.5"/>
+      <text x="200" y="208" text-anchor="middle" font-size="11" font-weight="600" fill="#085041">Recommendation</text>
+      <text x="200" y="224" text-anchor="middle" font-size="11" font-weight="600" fill="#085041">Engine</text>
+      <text x="200" y="242" text-anchor="middle" font-size="10" fill="#0F6E56">Core microservice</text>
+      <text x="200" y="308" text-anchor="middle" font-size="10" fill="#999">Pay/split/postpone</text>
+      <rect x="274" y="180" width="116" height="144" rx="8" fill="#fff" stroke="#BA7517" stroke-width="0.5"/>
+      <text x="332" y="208" text-anchor="middle" font-size="11" font-weight="600" fill="#633806">Compliance /</text>
+      <text x="332" y="224" text-anchor="middle" font-size="11" font-weight="600" fill="#633806">Output Filter</text>
+      <text x="332" y="242" text-anchor="middle" font-size="10" fill="#BA7517">CFPB gate</text>
+      <text x="332" y="308" text-anchor="middle" font-size="10" fill="#999">Wording check</text>
+      <rect x="406" y="180" width="102" height="144" rx="8" fill="#fff" stroke="#0F6E56" stroke-width="0.5"/>
+      <text x="457" y="216" text-anchor="middle" font-size="11" font-weight="600" fill="#085041">Feedback</text>
+      <text x="457" y="232" text-anchor="middle" font-size="11" font-weight="600" fill="#085041">Loop</text>
+      <text x="457" y="308" text-anchor="middle" font-size="10" fill="#999">Learning signal</text>
+      <rect x="524" y="180" width="110" height="144" rx="8" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.5"/>
+      <text x="579" y="216" text-anchor="middle" font-size="11" font-weight="600" fill="#3C3489">ML Scoring</text>
+      <text x="579" y="232" text-anchor="middle" font-size="11" font-weight="600" fill="#3C3489">Engine</text>
+      <text x="579" y="250" text-anchor="middle" font-size="10" fill="#534AB7">Project 2</text>
+      <text x="579" y="308" text-anchor="middle" font-size="10" fill="#999">Personalization</text>
+      <line x1="126" y1="252" x2="142" y2="252" stroke="#0F6E56" stroke-width="1" marker-end="url(#a2g)"/>
+      <line x1="258" y1="252" x2="274" y2="252" stroke="#0F6E56" stroke-width="1" marker-end="url(#a2g)"/>
+      <line x1="390" y1="252" x2="406" y2="252" stroke="#0F6E56" stroke-width="1" marker-end="url(#a2g)"/>
+      <line x1="508" y1="252" x2="524" y2="252" stroke="#534AB7" stroke-width="1" stroke-dasharray="4 2" marker-end="url(#a2p)"/>
     </g>
-
-    <!-- connector biz to data -->
-    <g class="arch-node" id="arch-1b">
-      <line x1="317" y1="330" x2="317" y2="358" stroke="#888780" stroke-width="1" marker-end="url(#arr2)" fill="none"/>
+    <g class="an" id="ar1b">
+      <line x1="330" y1="342" x2="330" y2="370" stroke="#888" stroke-width="1" marker-end="url(#a2gr)"/>
     </g>
-
-    <!-- Step 2: Data layer -->
-    <g class="arch-node" id="arch-2">
-      <rect x="20" y="358" width="600" height="122" rx="12" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.5"/>
-      <text x="36" y="378" font-size="11" font-weight="500" fill="#444441" font-family="var(--font-sans)">Data access layer</text>
-      <rect x="36" y="390" width="176" height="72" rx="8" fill="#fff" stroke="#888780" stroke-width="0.5"/>
-      <text x="124" y="424" text-anchor="middle" font-size="13" font-weight="500" fill="#2C2C2A" font-family="var(--font-sans)">Transaction DB</text>
-      <text x="124" y="442" text-anchor="middle" font-size="11" fill="#5F5E5A" font-family="var(--font-sans)">User spend history</text>
-      <rect x="232" y="390" width="176" height="72" rx="8" fill="#fff" stroke="#888780" stroke-width="0.5"/>
-      <text x="320" y="424" text-anchor="middle" font-size="13" font-weight="500" fill="#2C2C2A" font-family="var(--font-sans)">Recommendation store</text>
-      <text x="320" y="442" text-anchor="middle" font-size="11" fill="#5F5E5A" font-family="var(--font-sans)">Outcome log</text>
-      <rect x="428" y="390" width="172" height="72" rx="8" fill="#fff" stroke="#888780" stroke-width="0.5"/>
-      <text x="514" y="424" text-anchor="middle" font-size="13" font-weight="500" fill="#2C2C2A" font-family="var(--font-sans)">User profile store</text>
-      <text x="514" y="442" text-anchor="middle" font-size="11" fill="#5F5E5A" font-family="var(--font-sans)">Budget + consent</text>
+    <g class="an" id="ar2">
+      <rect x="10" y="370" width="640" height="130" rx="12" fill="#F1EFE8" stroke="#888" stroke-width="0.5"/>
+      <text x="26" y="390" font-size="11" font-weight="600" fill="#444">Data access layer</text>
+      <rect x="26" y="402" width="186" height="78" rx="8" fill="#fff" stroke="#aaa" stroke-width="0.5"/>
+      <text x="119" y="436" text-anchor="middle" font-size="12" font-weight="600" fill="#1a1a1a">Transaction DB</text>
+      <text x="119" y="454" text-anchor="middle" font-size="11" fill="#666">User spend history</text>
+      <rect x="236" y="402" width="188" height="78" rx="8" fill="#fff" stroke="#aaa" stroke-width="0.5"/>
+      <text x="330" y="436" text-anchor="middle" font-size="12" font-weight="600" fill="#1a1a1a">Recommendation store</text>
+      <text x="330" y="454" text-anchor="middle" font-size="11" fill="#666">Outcome log</text>
+      <rect x="448" y="402" width="186" height="78" rx="8" fill="#fff" stroke="#aaa" stroke-width="0.5"/>
+      <text x="541" y="436" text-anchor="middle" font-size="12" font-weight="600" fill="#1a1a1a">User profile store</text>
+      <text x="541" y="454" text-anchor="middle" font-size="11" fill="#666">Budget + consent</text>
     </g>
   </svg>
 </div>
 
 <!-- DEPENDENCY MAP -->
-<div class="content" id="tab-deps">
-  <div class="section-label">Dependency map — module level</div>
+<div class="content" id="tab-dep">
+  <div class="slabel">Dependency map — module level</div>
   <div class="desc">Precedence diagramming (S2S, F2S, F2F) at module level — consistent with how Google runs large programs.</div>
   <div class="play-bar">
-    <button class="play-btn" onclick="playDeps()">Play walkthrough</button>
-    <div class="step-dots" id="dep-dots"></div>
-    <span class="step-label" id="dep-label"></span>
+    <button class="play-btn" onclick="playDep()">&#9654; Play walkthrough</button>
+    <div class="dots" id="dep-dots"></div>
+    <span class="slb" id="dep-lbl"></span>
   </div>
-  <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:20px">
-    <div class="dep-row" id="dep-0" style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
-      <div style="min-width:110px;text-align:center"><div style="border:0.5px solid #185FA5;border-radius:8px;padding:9px 10px;font-size:12px;font-weight:500;color:#0C447C;background:#E6F1FB">Bank API integration</div><div style="font-size:10px;color:var(--color-text-tertiary);margin-top:3px">Module 1</div></div>
-      <div style="text-align:center"><div style="font-size:11px;color:#185FA5;font-weight:500">F2S</div><div style="font-size:16px;color:var(--color-text-tertiary)">→</div></div>
-      <div style="min-width:110px;text-align:center"><div style="border:0.5px solid #0F6E56;border-radius:8px;padding:9px 10px;font-size:12px;font-weight:500;color:#085041;background:#E1F5EE">Cash flow analysis</div><div style="font-size:10px;color:var(--color-text-tertiary);margin-top:3px">Module 2</div></div>
-      <div style="text-align:center"><div style="font-size:11px;color:#0F6E56;font-weight:500">S2S</div><div style="font-size:16px;color:var(--color-text-tertiary)">→</div></div>
-      <div style="min-width:110px;text-align:center"><div style="border:0.5px solid #0F6E56;border-radius:8px;padding:9px 10px;font-size:12px;font-weight:500;color:#085041;background:#E1F5EE">Recommendation engine</div><div style="font-size:10px;color:var(--color-text-tertiary);margin-top:3px">Module 3</div></div>
-      <div style="text-align:center"><div style="font-size:11px;color:#888780;font-weight:500">F2S</div><div style="font-size:16px;color:var(--color-text-tertiary)">→</div></div>
-      <div style="min-width:110px;text-align:center"><div style="border:0.5px solid #888780;border-radius:8px;padding:9px 10px;font-size:12px;font-weight:500;color:#2C2C2A;background:#F1EFE8">Notification delivery</div><div style="font-size:10px;color:var(--color-text-tertiary);margin-top:3px">Module 4</div></div>
-    </div>
-    <div class="dep-row" id="dep-1" style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:4px">
-      <div style="min-width:110px;text-align:center"><div style="border:0.5px solid #BA7517;border-radius:8px;padding:9px 10px;font-size:12px;font-weight:500;color:#633806;background:#FAEEDA">Compliance layer</div><div style="font-size:10px;color:var(--color-text-tertiary);margin-top:3px">Module 5 (parallel)</div></div>
-      <div style="text-align:center"><div style="font-size:11px;color:#BA7517;font-weight:500">S2S</div><div style="font-size:16px;color:var(--color-text-tertiary)">→</div></div>
-      <div style="min-width:110px;text-align:center"><div style="border:0.5px solid #0F6E56;border-radius:8px;padding:9px 10px;font-size:12px;font-weight:500;color:#085041;background:#E1F5EE">Recommendation engine</div><div style="font-size:10px;color:var(--color-text-tertiary);margin-top:3px">Module 3</div></div>
-      <div style="text-align:center"><div style="font-size:11px;color:#5F5E5A;font-weight:500">F2F</div><div style="font-size:16px;color:var(--color-text-tertiary)">→</div></div>
-      <div style="min-width:110px;text-align:center"><div style="border:0.5px solid #534AB7;border-radius:8px;padding:9px 10px;font-size:12px;font-weight:500;color:#3C3489;background:#EEEDFE">ML scoring engine</div><div style="font-size:10px;color:var(--color-text-tertiary);margin-top:3px">Module 6 — Project 2</div></div>
-    </div>
+  <div class="dr" id="dp0">
+    <div class="sublabel">Primary delivery chain</div>
+    <div class="chain">Bank API Integration ──F2S──▶ Cash Flow Analysis ──S2S──▶ Recommendation Engine ──F2S──▶ Compliance / Output Filter ──F2S──▶ Notification Delivery</div>
+    <table><thead><tr><th>From</th><th>Type</th><th>To</th><th>Risk</th><th>Rationale</th></tr></thead><tbody>
+      <tr><td>Bank API Integration</td><td><span class="pill pb">F2S</span></td><td>Cash Flow Analysis</td><td><span class="pill pr">High</span></td><td>Cannot run without a verified real-time data feed</td></tr>
+      <tr><td>Cash Flow Analysis</td><td><span class="pill pg">S2S</span></td><td>Recommendation Engine</td><td><span class="pill pa">Medium</span></td><td>Both run concurrently once analysis service starts</td></tr>
+      <tr><td>Recommendation Engine</td><td><span class="pill pb">F2S</span></td><td>Compliance / Output Filter</td><td><span class="pill pr">High</span></td><td>Filter must check wording before any output reaches users</td></tr>
+      <tr><td>Compliance / Output Filter</td><td><span class="pill pb">F2S</span></td><td>Notification Delivery</td><td><span class="pill pg">Low</span></td><td>Only approved CFPB-compliant content can be delivered</td></tr>
+    </tbody></table>
   </div>
-  <div style="margin-bottom:12px">
-    <span class="badge dep-row" id="dep-2" style="border-color:#185FA5;color:#185FA5">F2S — finish-to-start</span>
-    <span class="badge dep-row" id="dep-3" style="border-color:#0F6E56;color:#0F6E56">S2S — start-to-start</span>
-    <span class="badge dep-row" id="dep-4" style="border-color:#5F5E5A;color:#5F5E5A">F2F — finish-to-finish</span>
+  <div class="dr" id="dp1">
+    <div class="sublabel">Project 2 dependencies</div>
+    <div class="chain">Feedback Loop / Recommendation Store ──F2F──▶ ML Scoring Engine &nbsp;|&nbsp; Feedback Loop ──S2S──▶ Recommendation Engine</div>
+    <table><thead><tr><th>From</th><th>Type</th><th>To</th><th>Risk</th><th>Rationale</th></tr></thead><tbody>
+      <tr><td>Feedback Loop / Recommendation Store</td><td><span class="pill pgy">F2F</span></td><td>ML Scoring Engine (Project 2)</td><td><span class="pill pa">Medium</span></td><td>ML cannot complete until outcome history is fully collected</td></tr>
+      <tr><td>Feedback Loop</td><td><span class="pill pg">S2S</span></td><td>Recommendation Engine</td><td><span class="pill pa">Medium</span></td><td>Feedback begins capturing signals as engine starts delivering</td></tr>
+    </tbody></table>
   </div>
-  <table class="dep-row" id="dep-5" style="margin-top:8px">
-    <thead><tr><th>External dependency</th><th>Type</th><th>Risk</th><th>Note</th></tr></thead>
-    <tbody>
-      <tr><td>Plaid / Finicity API</td><td>Vendor</td><td><span class="pill p-amber">Medium</span></td><td>SLA must be confirmed before Module 2 starts</td></tr>
-      <tr><td>FCM / APNs</td><td>Vendor</td><td><span class="pill p-green">Low</span></td><td>Stable, standard integration</td></tr>
-      <tr><td>CFPB compliance review</td><td>Regulatory</td><td><span class="pill p-red">High</span></td><td>Legal sign-off before recommendation copy is finalised</td></tr>
-      <tr><td>Stripe / Braintree</td><td>Vendor</td><td><span class="pill p-amber">Medium</span></td><td>Installment plan API availability to be validated</td></tr>
-      <tr><td>ML training data</td><td>Internal — Project 2</td><td><span class="pill p-amber">Medium</span></td><td>Needs outcome history from Project 1 before ML trains</td></tr>
-    </tbody>
-  </table>
+  <div class="dr" id="dp2">
+    <div class="sublabel">Internal dependencies</div>
+    <div class="chain" style="font-size:11px">Transaction DB ──F2S──▶ Cash Flow Analysis ──F2S──▶ Recommendation Engine ──F2S──▶ Compliance / Output Filter ──F2S──▶ Notification Delivery<br>User Profile Store ──F2S──▶ Recommendation Engine<br>Recommendation Engine ──F2S──▶ Recommendation Store ──F2S──▶ Feedback Loop ──F2F──▶ ML Scoring Engine</div>
+    <table><thead><tr><th>Internal dependency</th><th>Type</th><th>Risk</th><th>Note</th></tr></thead><tbody>
+      <tr><td>Transaction DB</td><td>Internal data store</td><td><span class="pill pa">Medium</span></td><td>Must provide transaction and balance history before Cash Flow Analysis starts</td></tr>
+      <tr><td>User Profile Store</td><td>Internal data store</td><td><span class="pill pa">Medium</span></td><td>Must provide budget, consent, and preference data before Recommendation Engine runs</td></tr>
+      <tr><td>Cash Flow Analysis</td><td>Internal module</td><td><span class="pill pr">High</span></td><td>Must complete affordability evaluation before Recommendation Engine decides pay / split / postpone</td></tr>
+      <tr><td>Recommendation Engine</td><td>Internal module</td><td><span class="pill pr">High</span></td><td>Must generate output before Compliance / Output Filter checks the wording</td></tr>
+      <tr><td>Compliance / Output Filter</td><td>Internal control</td><td><span class="pill pr">High</span></td><td>Must approve suggestion-only wording before Notification Delivery or mobile output</td></tr>
+      <tr><td>Recommendation Store</td><td>Internal data store</td><td><span class="pill pa">Medium</span></td><td>Must log generated and approved recommendations for traceability and future feedback analysis</td></tr>
+      <tr><td>Feedback Loop</td><td>Internal module</td><td><span class="pill pa">Medium</span></td><td>Must capture user actions and outcomes after recommendations are delivered</td></tr>
+      <tr><td>ML Scoring Engine</td><td>Internal — Project 2</td><td><span class="pill pa">Medium</span></td><td>Needs Project 1 feedback and outcome history before ML personalization can be trained</td></tr>
+    </tbody></table>
+  </div>
+  <div class="dr" id="dp3">
+    <div class="sublabel">External dependencies</div>
+    <table><thead><tr><th>Dependency</th><th>Type</th><th>Risk</th><th>Mitigation</th></tr></thead><tbody>
+      <tr><td>Plaid / Finicity API</td><td>External vendor</td><td><span class="pill pa">Medium</span></td><td>Confirm rate limits and SLA before Cash Flow Analysis development begins</td></tr>
+      <tr><td>FCM / APNs</td><td>External vendor</td><td><span class="pill pg">Low</span></td><td>Stable standard integration</td></tr>
+      <tr><td>CFPB compliance review</td><td>Regulatory</td><td><span class="pill pr">High</span></td><td>Legal sign-off required before Compliance / Output Filter content is finalised</td></tr>
+      <tr><td>Stripe / Braintree</td><td>External vendor</td><td><span class="pill pa">Medium</span></td><td>Validate installment plan API in discovery sprint</td></tr>
+      <tr><td>ML training data</td><td>Internal — Project 2</td><td><span class="pill pa">Medium</span></td><td>Project 1 Feedback Loop must accumulate sufficient outcome history first</td></tr>
+    </tbody></table>
+  </div>
 </div>
 
 <!-- COMPLIANCE -->
-<div class="content" id="tab-compliance">
-  <div class="section-label">Regulatory and compliance considerations</div>
+<div class="content" id="tab-comp">
+  <div class="slabel">Regulatory and compliance considerations</div>
   <div class="desc">Requirements mapped to system components. HIPAA excluded — not applicable to fintech.</div>
   <div class="play-bar">
-    <button class="play-btn" onclick="playCompliance()">Play walkthrough</button>
-    <div class="step-dots" id="comp-dots"></div>
-    <span class="step-label" id="comp-label"></span>
+    <button class="play-btn" onclick="playComp()">&#9654; Play walkthrough</button>
+    <div class="dots" id="comp-dots"></div>
+    <span class="slb" id="comp-lbl"></span>
   </div>
-  <table>
-    <thead><tr><th>Standard</th><th>Key requirements</th><th>Components affected</th><th>Status</th></tr></thead>
-    <tbody>
-      <tr class="comp-row" id="comp-0"><td><span class="pill p-blue">CFPB</span></td><td>Suggestions only — not regulated financial advice. No guarantee language.</td><td>Recommendation engine, notification copy, mobile UI</td><td><span class="pill p-red">Legal review required</span></td></tr>
-      <tr class="comp-row" id="comp-1"><td><span class="pill p-amber">PCI-DSS</span></td><td>Tokenization of payment data, firewall config, secure transmission</td><td>Payment processor, transaction DB, API gateway</td><td><span class="pill p-amber">Vendor handles majority</span></td></tr>
-      <tr class="comp-row" id="comp-2"><td><span class="pill p-green">CCPA</span></td><td>User consent for transaction data, right to deletion, opt-out of data sharing</td><td>User profile store, consent logging, bank API integration</td><td><span class="pill p-amber">ToS update needed</span></td></tr>
-      <tr class="comp-row" id="comp-3"><td><span class="pill p-blue">GDPR</span></td><td>Data encryption, consent logging, right to be forgotten, data minimisation</td><td>All data stores, authentication layer, user profile store</td><td><span class="pill p-amber">If EU users onboarded</span></td></tr>
-      <tr class="comp-row" id="comp-4"><td><span class="pill p-gray">Inv. Advisers Act</span></td><td>SpendWise must NOT constitute registered investment advice. Framing critical.</td><td>All user-facing recommendation copy</td><td><span class="pill p-red">Hard constraint</span></td></tr>
-    </tbody>
-  </table>
-  <div class="warn-box comp-row" id="comp-5">HIPAA deliberately excluded — it covers healthcare data, not financial platforms. Including it would signal we copied the sample template without thinking.</div>
+  <table><thead><tr><th>Standard</th><th>Key requirements</th><th>Components affected</th><th>Status</th></tr></thead><tbody>
+    <tr class="cr" id="cp0"><td><span class="pill pb">CFPB</span></td><td>Suggestions only — not regulated financial advice. No guarantee language.</td><td>Recommendation engine, Compliance/Output Filter, notification copy, mobile UI</td><td><span class="pill pr">Legal review required</span></td></tr>
+    <tr class="cr" id="cp1"><td><span class="pill pa">PCI-DSS</span></td><td>Tokenization of payment data, firewall config, secure transmission</td><td>Payment processor, Transaction DB, API gateway</td><td><span class="pill pa">Vendor handles majority</span></td></tr>
+    <tr class="cr" id="cp2"><td><span class="pill pg">CCPA</span></td><td>User consent for transaction data, right to deletion, opt-out of sharing</td><td>User profile store, consent logging, bank API integration</td><td><span class="pill pa">ToS update needed</span></td></tr>
+    <tr class="cr" id="cp3"><td><span class="pill pb">GDPR</span></td><td>Data encryption, consent logging, right to be forgotten, data minimisation</td><td>All data stores, authentication layer, user profile store</td><td><span class="pill pa">If EU users onboarded</span></td></tr>
+    <tr class="cr" id="cp4"><td><span class="pill pgy">Inv. Advisers Act</span></td><td>SpendWise must not constitute registered investment advice. Framing critical.</td><td>All user-facing recommendation copy</td><td><span class="pill pr">Hard constraint</span></td></tr>
+  </tbody></table>
+  <div class="warnbox cr" id="cp5">HIPAA deliberately excluded — it covers healthcare data, not financial platforms. Including it would indicate template-copying rather than project-specific analysis.</div>
 </div>
 
 <!-- EXTRA CREDIT -->
-<div class="content" id="tab-extra">
-  <div class="section-label">Advanced concepts — extra credit</div>
+<div class="content" id="tab-ext">
+  <div class="slabel">Advanced concepts — extra credit</div>
   <div class="desc">Not bolted on — each concept traces directly back to Assignment 1 decisions.</div>
   <div class="play-bar">
-    <button class="play-btn" onclick="playExtra()">Play walkthrough</button>
-    <div class="step-dots" id="extra-dots"></div>
-    <span class="step-label" id="extra-label"></span>
+    <button class="play-btn" onclick="playExt()">&#9654; Play walkthrough</button>
+    <div class="dots" id="ext-dots"></div>
+    <span class="slb" id="ext-lbl"></span>
   </div>
-  <div class="extra-card" id="extra-0">
-    <div style="font-size:13px;font-weight:500;color:var(--color-text-primary);margin-bottom:6px">SAFe architectural runway</div>
-    <div style="font-size:12px;color:var(--color-text-secondary);line-height:1.6">The modular add-on architecture in Project 1 was designed to avoid blocking Project 2. The recommendation engine microservice is decoupled from the ML scoring engine — Project 2 plugs in without touching Project 1 code. The feedback loop service begins collecting outcome data in Project 1 so that by the time Project 2 starts, there is enough training signal. This is what SAFe calls "runway" — the architecture is already prepared for the next horizon before you get there.</div>
+  <div class="ec" id="ex0">
+    <div class="ect">SAFe architectural runway</div>
+    <div class="ecb">The modular add-on architecture in Project 1 was designed to avoid blocking Project 2. The recommendation engine microservice is decoupled from the ML scoring engine — Project 2 plugs in without touching Project 1 code. The feedback loop begins collecting outcome data in Project 1 so that by the time Project 2 starts, there is enough training signal. This is what SAFe calls "runway" — the architecture is already prepared for the next horizon before you get there.</div>
   </div>
-  <div class="extra-card" id="extra-1">
-    <div style="font-size:13px;font-weight:500;color:var(--color-text-primary);margin-bottom:6px">Hybrid delivery model</div>
-    <div style="font-size:12px;color:var(--color-text-secondary);line-height:1.6">Not all modules are delivered the same way. Bank API integration and the compliance layer are planned predictively — requirements are clear, low risk. The recommendation engine and notification UX are delivered adaptively — early user feedback shapes which trigger conditions and copy perform best. We document this split so the team knows which sprints are flex and which are fixed.</div>
+  <div class="ec" id="ex1">
+    <div class="ect">Hybrid delivery model</div>
+    <div class="ecb">Bank API integration and the compliance layer are planned predictively — requirements are fixed, no iteration needed. The recommendation engine and notification UX are delivered adaptively — early user feedback shapes which trigger conditions and copy perform best. The Compliance / Output Filter is a hard gate on every sprint, ensuring CFPB compliance is part of the definition of done, not a post-sprint review.</div>
   </div>
-  <div class="extra-card" id="extra-2">
-    <div style="font-size:13px;font-weight:500;color:var(--color-text-primary);margin-bottom:6px">DevOps integration planning</div>
-    <div style="font-size:12px;color:var(--color-text-secondary);line-height:1.6">Three practices built in: (1) Feature flags — recommendations roll out to 5% of users first, metrics measured before full release; (2) CI/CD pipeline — new model versions tested against a holdout set before deployment, zero-downtime releases; (3) Automated compliance testing — recommendation copy is linted against CFPB language rules on every commit. Connects back to Assignment 1 success criteria — we need to release fast and measure against churn and conversion targets.</div>
+  <div class="ec" id="ex2">
+    <div class="ect">DevOps integration planning</div>
+    <div class="ecb">(1) Feature flags — recommendations roll out to 5% of users first, churn and engagement measured before full release. (2) CI/CD pipeline — new model versions tested against a holdout set before deployment, zero-downtime releases. (3) Automated compliance testing — recommendation copy is linted against CFPB language rules on every commit. This connects directly to the Assignment 1 success criteria — fast releases measured against churn and conversion targets.</div>
   </div>
-  <div class="info-box" id="extra-3" style="opacity:0;transition:opacity .4s">All three concepts trace back to Assignment 1 — the two-project program structure, the adaptive/hybrid lifecycle, and the MOV metrics. This assignment extends the same thinking technically.</div>
-</div>
+  <div class="infobox" id="ex3" style="opacity:0;transition:opacity .5s">All three concepts trace back to Assignment 1 — the two-project program structure, the adaptive/hybrid lifecycle, and the MOV metrics. This assignment extends the same thinking technically.</div>
 </div>
 
 <script>
-const TABS=['context','arch','deps','compliance','extra'];
-
+const TABS={ctx:'tab-ctx',arch:'tab-arch',dep:'tab-dep',comp:'tab-comp',ext:'tab-ext'};
 function switchTab(id){
-  document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',TABS[i]===id));
-  document.querySelectorAll('.content').forEach(c=>c.classList.remove('active'));
-  document.getElementById('tab-'+id).classList.add('active');
+  document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',Object.keys(TABS)[i]===id));
+  Object.values(TABS).forEach(v=>document.getElementById(v).classList.remove('active'));
+  document.getElementById(TABS[id]).classList.add('active');
 }
+function mkDots(id,n){const c=document.getElementById(id);c.innerHTML='';for(let i=0;i<n;i++){const d=document.createElement('div');d.className='dot';c.appendChild(d);}}
+function onDot(id,i){document.querySelectorAll('#'+id+' .dot').forEach((d,j)=>d.classList.toggle('on',j<=i));}
+function wait(ms){return new Promise(r=>setTimeout(r,ms));}
 
-function makeDots(containerId, n){
-  const c=document.getElementById(containerId);
-  c.innerHTML='';
-  for(let i=0;i<n;i++){const d=document.createElement('div');d.className='dot';d.id=containerId+'-d'+i;c.appendChild(d);}
-}
-function activateDot(containerId,i){
-  document.querySelectorAll('#'+containerId+' .dot').forEach((d,j)=>d.classList.toggle('active',j<=i));
-}
-
-function delay(ms){return new Promise(r=>setTimeout(r,ms));}
-
-async function playContext(){
+async function playCtx(){
   const steps=[
-    {ids:['ctx-0'],label:'System boundary — the recommendation engine core'},
-    {ids:['ctx-1'],arrows:['ctx-1a'],label:'Mobile app — sends purchase intent, receives recommendation'},
-    {ids:['ctx-2'],arrows:['ctx-2a'],label:'Bank APIs — feed real-time transaction data into the engine'},
-    {ids:['ctx-3'],arrows:['ctx-3a'],label:'Push service + payment processor connections'},
-    {ids:['ctx-4'],arrows:['ctx-4a'],label:'Analytics and affiliate partner integrations'},
-    {ids:['ctx-5'],label:'CFPB compliance boundary — recommendations only, not financial advice'},
+    {nodes:['cn0'],label:'System boundary — the recommendation engine core'},
+    {nodes:['cn1'],arrows:['ca1'],label:'SpendWise User — primary actor sending purchase intent and receiving recommendations'},
+    {nodes:['cn2'],arrows:['ca2'],label:'Bank APIs — feed real-time transaction data into the engine'},
+    {nodes:['cn3'],arrows:['ca3'],label:'Push service and payment processor connections'},
+    {nodes:['cn4'],arrows:['ca4'],label:'Analytics and affiliate partner integrations'},
+    {labels:['cl5'],label:'CFPB compliance boundary — recommendations only, not financial advice'},
   ];
-  makeDots('ctx-dots',steps.length);
-  document.querySelectorAll('.sw-node,.sw-arrow,.sw-label').forEach(e=>{e.classList.remove('sw-show');});
+  mkDots('ctx-dots',steps.length);
+  document.querySelectorAll('.sw-node,.sw-arrow,.sw-label').forEach(e=>e.classList.remove('sw-show'));
   for(let i=0;i<steps.length;i++){
-    const s=steps[i];
-    activateDot('ctx-dots',i);
-    document.getElementById('ctx-label').textContent=s.label;
-    s.ids.forEach(id=>document.getElementById(id).classList.add('sw-show'));
-    await delay(300);
-    if(s.arrows)s.arrows.forEach(id=>document.getElementById(id).classList.add('sw-show'));
-    await delay(900);
+    onDot('ctx-dots',i);
+    document.getElementById('ctx-lbl').textContent=steps[i].label;
+    if(steps[i].nodes)steps[i].nodes.forEach(id=>document.getElementById(id).classList.add('sw-show'));
+    await wait(300);
+    if(steps[i].arrows)steps[i].arrows.forEach(id=>document.getElementById(id).classList.add('sw-show'));
+    if(steps[i].labels)steps[i].labels.forEach(id=>document.getElementById(id).classList.add('sw-show'));
+    await wait(1000);
   }
 }
 
 async function playArch(){
   const steps=[
-    {ids:['arch-0'],label:'Presentation layer — mobile UI, API gateway, notification service'},
-    {ids:['arch-0b'],label:'Data flows down from presentation to business logic'},
-    {ids:['arch-1'],label:'Business logic — four microservices working together'},
-    {ids:['arch-1b'],label:'Data flows down to the persistence layer'},
-    {ids:['arch-2'],label:'Data access layer — transaction DB, recommendation store, user profiles'},
+    {ids:['ar0'],label:'Presentation layer — mobile UI, API gateway, notification service'},
+    {ids:['ar0b'],label:'Data flows down from presentation to business logic'},
+    {ids:['ar1'],label:'Business logic — Cash Flow Analysis → Recommendation → Compliance Filter → Feedback Loop → ML (Project 2)'},
+    {ids:['ar1b'],label:'Data flows down to the persistence layer'},
+    {ids:['ar2'],label:'Data access layer — transaction DB, recommendation store, user profiles'},
   ];
-  makeDots('arch-dots',steps.length);
-  document.querySelectorAll('.arch-node').forEach(e=>e.classList.remove('arch-show'));
+  mkDots('arch-dots',steps.length);
+  document.querySelectorAll('.an').forEach(e=>e.classList.remove('show'));
   for(let i=0;i<steps.length;i++){
-    const s=steps[i];
-    activateDot('arch-dots',i);
-    document.getElementById('arch-label').textContent=s.label;
-    s.ids.forEach(id=>document.getElementById(id).classList.add('arch-show'));
-    await delay(1000);
+    onDot('arch-dots',i);
+    document.getElementById('arch-lbl').textContent=steps[i].label;
+    steps[i].ids.forEach(id=>document.getElementById(id).classList.add('show'));
+    await wait(1100);
   }
 }
 
-async function playDeps(){
+async function playDep(){
   const steps=[
-    {id:'dep-0',label:'Primary chain — Bank API → Cash flow → Recommendation engine → Notification'},
-    {id:'dep-1',label:'Parallel chain — Compliance layer runs alongside, gates ML scoring (Project 2)'},
-    {id:'dep-2',label:'F2S: finish-to-start — predecessor must finish before successor can begin'},
-    {id:'dep-3',label:'S2S: start-to-start — both can run concurrently once the first begins'},
-    {id:'dep-4',label:'F2F: finish-to-finish — successor cannot finish before predecessor finishes'},
-    {id:'dep-5',label:'External dependencies — vendors, regulatory, and cross-project dependencies'},
+    {id:'dp0',label:'Primary chain — Bank API → Cash Flow → Recommendation → Compliance Filter → Notification'},
+    {id:'dp1',label:'Project 2 — Feedback Loop gates ML Scoring Engine'},
+    {id:'dp2',label:'Internal dependencies — full chain including Transaction DB and User Profile Store'},
+    {id:'dp3',label:'External dependencies — vendors, regulatory, cross-project'},
   ];
-  makeDots('dep-dots',steps.length);
-  document.querySelectorAll('.dep-row').forEach(e=>e.classList.remove('dep-show'));
+  mkDots('dep-dots',steps.length);
+  document.querySelectorAll('.dr').forEach(e=>e.classList.remove('show'));
   for(let i=0;i<steps.length;i++){
-    const s=steps[i];
-    activateDot('dep-dots',i);
-    document.getElementById('dep-label').textContent=s.label;
-    document.getElementById(s.id).classList.add('dep-show');
-    await delay(1100);
+    onDot('dep-dots',i);
+    document.getElementById('dep-lbl').textContent=steps[i].label;
+    document.getElementById(steps[i].id).classList.add('show');
+    await wait(1200);
   }
 }
 
-async function playCompliance(){
+async function playComp(){
   const steps=[
-    {id:'comp-0',label:'CFPB — the most critical constraint for SpendWise. Needs legal review.'},
-    {id:'comp-1',label:'PCI-DSS — payment data security. Largely handled by Stripe/Braintree.'},
-    {id:'comp-2',label:'CCPA — California user data rights. Terms of service update required.'},
-    {id:'comp-3',label:'GDPR — applies if SpendWise onboards EU users in future.'},
-    {id:'comp-4',label:'Investment Advisers Act — hard constraint on recommendation framing.'},
-    {id:'comp-5',label:'HIPAA excluded — healthcare regulation, not applicable to fintech.'},
+    {id:'cp0',label:'CFPB — most critical. Compliance/Output Filter enforces this on every recommendation.'},
+    {id:'cp1',label:'PCI-DSS — payment data security, largely handled by Stripe/Braintree'},
+    {id:'cp2',label:'CCPA — California user data rights, ToS update required'},
+    {id:'cp3',label:'GDPR — applies if SpendWise onboards EU users'},
+    {id:'cp4',label:'Investment Advisers Act — hard constraint on all recommendation framing'},
+    {id:'cp5',label:'HIPAA excluded — healthcare regulation, not applicable to fintech'},
   ];
-  makeDots('comp-dots',steps.length);
-  document.querySelectorAll('.comp-row').forEach(e=>e.classList.remove('comp-show'));
+  mkDots('comp-dots',steps.length);
+  document.querySelectorAll('.cr').forEach(e=>e.classList.remove('show'));
   for(let i=0;i<steps.length;i++){
-    const s=steps[i];
-    activateDot('comp-dots',i);
-    document.getElementById('comp-label').textContent=s.label;
-    document.getElementById(s.id).classList.add('comp-show');
-    await delay(1100);
+    onDot('comp-dots',i);
+    document.getElementById('comp-lbl').textContent=steps[i].label;
+    document.getElementById(steps[i].id).classList.add('show');
+    await wait(1100);
   }
 }
 
-async function playExtra(){
+async function playExt(){
   const steps=[
-    {id:'extra-0',label:'SAFe architectural runway — Project 1 architecture already prepares for Project 2'},
-    {id:'extra-1',label:'Hybrid delivery — predictive for compliance, adaptive for recommendation UX'},
-    {id:'extra-2',label:'DevOps — feature flags, CI/CD, automated CFPB compliance testing'},
-    {id:'extra-3',label:'All three trace back to Assignment 1 decisions — one coherent thread'},
+    {id:'ex0',label:'SAFe architectural runway — Project 1 architecture already prepares for Project 2'},
+    {id:'ex1',label:'Hybrid delivery — Compliance Filter is a hard gate every sprint'},
+    {id:'ex2',label:'DevOps — feature flags, CI/CD, automated CFPB compliance testing'},
+    {id:'ex3',label:'All three trace back to Assignment 1 — one coherent thread'},
   ];
-  makeDots('extra-dots',steps.length);
-  document.querySelectorAll('.extra-card').forEach(e=>e.classList.remove('extra-show'));
-  document.getElementById('extra-3').style.opacity='0';
+  mkDots('ext-dots',steps.length);
+  document.querySelectorAll('.ec').forEach(e=>e.classList.remove('show'));
+  document.getElementById('ex3').style.opacity='0';
   for(let i=0;i<steps.length;i++){
-    const s=steps[i];
-    activateDot('extra-dots',i);
-    document.getElementById('extra-label').textContent=s.label;
-    const el=document.getElementById(s.id);
-    if(el.classList.contains('extra-card'))el.classList.add('extra-show');
+    onDot('ext-dots',i);
+    document.getElementById('ext-lbl').textContent=steps[i].label;
+    const el=document.getElementById(steps[i].id);
+    if(el.classList.contains('ec'))el.classList.add('show');
     else el.style.opacity='1';
-    await delay(1100);
+    await wait(1100);
   }
 }
 </script>
+</body>
+</html>
